@@ -5,19 +5,19 @@ int main()
 {
     sf::RenderWindow app(sf::VideoMode(200, 60), "Pomodoro");
     sf::Image img;
-    if (!img.loadFromFile("pomodoro.png"))
+    if (!img.loadFromFile("/usr/local/bin/pomodoro.png"))
         return 0;
     app.setIcon(img.getSize().x,img.getSize().y,img.getPixelsPtr());
 
     sf::SoundBuffer buffer;
-    if (!buffer.loadFromFile("ring.wav"))
+    if (!buffer.loadFromFile("/usr/local/bin/ring.wav"))
         return 0;
     sf::Sound ring(buffer);
 
     sf::Font font;
-    if (!font.loadFromFile("sansation.ttf"))
+    if (!font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"))
         return 0;
-    sf::Text text("Click to play !",font,30);
+    sf::Text text("Click to play !",font,20);
     text.setColor(sf::Color::Black);
 
     sf::RectangleShape shape;
@@ -59,14 +59,14 @@ int main()
         if (isPlaying)
         {
             timer += clock.restart();
-            if (isWorking && timer.asSeconds() >= 10)
+            if (isWorking && timer.asSeconds() >= 25 * 60)
             {
                 timer = sf::Time::Zero;
                 ring.play();
                 isWorking = false;
                 shape.setFillColor(sf::Color(80,80,255));
             }
-            else if (!isWorking && timer.asSeconds() >= 5)
+            else if (!isWorking && timer.asSeconds() >= 5 * 60)
             {
                 timer = sf::Time::Zero;
                 ring.play();
